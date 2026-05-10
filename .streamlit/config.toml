@@ -1,0 +1,7 @@
+[theme]
+base="dark"
+primaryColor="#10B981" # 10% Accent: Emerald Green
+backgroundColor="#111827" # 60% Neutral: Very dark blue/gray
+secondaryBackgroundColor="#1F2937" # 30% Secondary: Lighter charcoal
+textColor="#F9FAFB" # Crisp white text
+font="sans serif"
