@@ -135,6 +135,17 @@ def main():
         text_size = st.slider("Font Size (px)", 14, 30, 18)
         st.markdown(f"<style>div, p, li, span, td {{ font-size: {text_size}px !important; }}</style>", unsafe_allow_html=True)
 
+    # --- TEMPORARY MIGRATION TOOL ---
+        st.divider()
+        st.subheader("One-Time Data Migration")
+        uploaded_file = st.file_uploader("Upload your old recipes.json", type="json")
+        if uploaded_file is not None:
+            if st.button("Migrate to Google Sheets", type="primary"):
+                old_recipes = json.load(uploaded_file)
+                save_recipes(old_recipes)
+                st.success("Migration complete! All recipes are now in the cloud.")
+        # --------------------------------
+
     st.title("My Recipes")
     
     tab_lib, tab_groc = st.tabs(["Recipe Library", "Grocery List"])
