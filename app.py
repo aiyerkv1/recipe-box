@@ -126,10 +126,35 @@ def edit_recipe_dialog(recipe_to_edit=None):
             save_recipes(recipes)
             st.rerun()
 
+# --- Check Password ---
+def check_password():
+    """Returns True if the user has entered the correct password."""
+    # If they are already logged in, let them through
+    if st.session_state.get("authenticated", False):
+        return True
+
+    # Otherwise, show the login screen
+    st.title("Welcome to My Recipes! 🍳")
+    st.write("Please log in to view the family recipe box.")
+    
+    pwd = st.text_input("Enter the Family Password:", type="password")
+    if st.button("Log In", type="primary"):
+        if pwd == st.secrets["APP_PASSWORD"]:
+            st.session_state["authenticated"] = True
+            st.rerun()
+        else:
+            st.error("Incorrect password. Please try again.")
+    return False
+    
 # --- Main App ---
 def main():
     st.set_page_config(page_title="My Recipes", layout="wide")
 
+    # THE LOCK: Stop the app here if the password is wrong
+    if not check_password():
+        st.stop() 
+
+    # If they pass the lock, show the rest of the app!
     with st.sidebar:
         st.header("Settings")
         text_size = st.slider("Font Size (px)", 14, 30, 18)
