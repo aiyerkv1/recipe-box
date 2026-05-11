@@ -13,7 +13,7 @@ def load_recipes():
     try:
         conn = get_connection()
         # Read the sheet into a Pandas DataFrame
-        df = conn.read(worksheet="Recipes", usecols=[0, 1, 2])
+        df = conn.read(worksheet="Recipes", usecols=[0, 1, 2], ttl=0)
         df = df.dropna(how="all") # Drop completely empty rows
         
         recipes = []
@@ -44,7 +44,7 @@ def save_recipes(recipes):
 def load_groceries():
     try:
         conn = get_connection()
-        df = conn.read(worksheet="Groceries", usecols=[0, 1])
+        df = conn.read(worksheet="Groceries", usecols=[0, 1], ttl=0)
         df = df.dropna(how="all")
         
         groceries = []
